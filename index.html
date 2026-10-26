@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff0f5" />
+  <title>For You ♥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blush: #ffb6c8;
+      --rose: #ff6b8a;
+      --deep: #c43d5c;
+      --cream: #fff8f5;
+      --ink: #4a2c35;
+      --soft: #ffe4ec;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%;
+      background: radial-gradient(ellipse at top, #fff0f5 0%, #ffe8f0 40%, #ffd6e7 100%);
+      color: var(--ink);
+      font-family: "Quicksand", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    body { position: relative; }
+
+    .hearts {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      font-size: 1.2rem;
+      opacity: 0.55;
+      animation: floatUp linear infinite;
+      color: var(--rose);
+      filter: drop-shadow(0 0 6px rgba(255, 107, 138, 0.35));
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 0; }
+      10% { opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(25deg) scale(1.1); opacity: 0; }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--deep);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,107,138,0.25);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 107, 138, 0.22);
+      border-radius: 28px;
+      padding: 2.25rem 1.75rem;
+      box-shadow:
+        0 20px 50px rgba(196, 61, 92, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      backdrop-filter: blur(14px);
+      text-align: center;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.1rem, 8vw, 2.85rem);
+      line-height: 1.15;
+      color: var(--deep);
+      margin-bottom: 0.35rem;
+    }
+    .subtitle {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: #8a4a5c;
+      margin-bottom: 1.5rem;
+    }
+
+    .years {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: linear-gradient(135deg, #ff8fa8, #ff6b8a);
+      color: white;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(255, 107, 138, 0.35);
+    }
+    .years span { font-size: 1.35rem; }
+
+    .message {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink);
+      text-align: left;
+      white-space: pre-line;
+    }
+    .message .hi {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.45rem;
+      color: var(--deep);
+      display: block;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .sign {
+      margin-top: 1.75rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--deep);
+      text-align: right;
+    }
+
+    .tap {
+      margin-top: 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      background: linear-gradient(135deg, #ff7a98, #e84a6f);
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(232, 74, 111, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tap:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(232, 74, 111, 0.45); }
+    .tap:active { transform: translateY(0); }
+
+    /* Envelope gate */
+    .gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, #fff0f5, #ffd0e0);
+      transition: opacity 0.7s ease, visibility 0.7s;
+    }
+    .gate.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .envelope {
+      width: min(280px, 72vw);
+      cursor: pointer;
+      text-align: center;
+      animation: softBounce 2.4s ease-in-out infinite;
+    }
+    @keyframes softBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .env-art {
+      width: 100%;
+      aspect-ratio: 5/3.4;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .env-body {
+      position: absolute;
+      inset: 28% 0 0;
+      background: linear-gradient(180deg, #ff9eb5, #ff7a98);
+      border-radius: 8px 8px 16px 16px;
+      box-shadow: 0 16px 40px rgba(196, 61, 92, 0.25);
+    }
+    .env-flap {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 52%;
+      background: linear-gradient(165deg, #ffb6c8, #ff8fa8);
+      clip-path: polygon(0 0, 50% 72%, 100% 0);
+      transform-origin: top center;
+      transition: transform 0.55s ease;
+      z-index: 2;
+      border-radius: 8px 8px 0 0;
+    }
+    .envelope.open .env-flap { transform: rotateX(180deg); opacity: 0.9; }
+    .env-heart {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.2rem;
+      z-index: 3;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+    }
+    .env-hint {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--deep);
+    }
+    .env-sub {
+      font-size: 0.85rem;
+      color: #8a4a5c;
+      margin-top: 0.35rem;
+    }
+
+    .content { opacity: 0; transform: translateY(16px); transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s; }
+    .content.show { opacity: 1; transform: none; }
+
+    .sparkles {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      margin: 1.25rem 0 0.25rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+    }
+
+    footer.note {
+      font-size: 0.8rem;
+      color: #a06676;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <div class="gate" id="gate">
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open your letter">
+      <div class="env-art">
+        <div class="env-flap"></div>
+        <div class="env-body"></div>
+        <div class="env-heart">♥</div>
+      </div>
+      <div class="env-hint">Tap to open</div>
+      <div class="env-sub">Something soft is waiting for you</div>
+    </div>
+  </div>
+
+  <main class="wrap content" id="content">
+    <div class="badge">27 · 10 · 2022 → forever</div>
+    <article class="card">
+      <div class="years"><span>4</span> years with you</div>
+      <h1>Happy Anniversary</h1>
+      <p class="subtitle">my favourite person in the whole world</p>
+      <div class="sparkles">✦ ♥ ✦</div>
+      <div class="message">
+        <span class="hi">Hey HER_NAME,</span>
+Dear HER_NAME,
+
+Four years ago, something quietly beautiful began — and somehow every day with you still feels like the first page of a story I never want to finish.
+
+Thank you for the laughs, the patience, the late-night talks, and for being home in a person.
+
+I love you more than these words can hold. Here's to us — year five, and every year after.
+      </div>
+      <p class="sign">Always yours,<br/>Siddharth ♥</p>
+      <button class="tap" type="button" id="again">Send another little heart ♥</button>
+    </article>
+    <p class="note">Made just for you · 27 Oct 2026</p>
+  </main>
+
+  <script>
+    (function () {
+      var hearts = document.getElementById("hearts");
+      var symbols = ["♥", "♡", "✦", "❀"];
+      function spawnHeart() {
+        var el = document.createElement("div");
+        el.className = "heart";
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.fontSize = 0.8 + Math.random() * 1.4 + "rem";
+        el.style.animationDuration = 7 + Math.random() * 8 + "s";
+        el.style.animationDelay = Math.random() * 2 + "s";
+        hearts.appendChild(el);
+        setTimeout(function () { el.remove(); }, 16000);
+      }
+      for (var i = 0; i < 14; i++) setTimeout(spawnHeart, i * 350);
+      setInterval(spawnHeart, 900);
+
+      var gate = document.getElementById("gate");
+      var envelope = document.getElementById("envelope");
+      var content = document.getElementById("content");
+
+      function openLetter() {
+        envelope.classList.add("open");
+        setTimeout(function () {
+          gate.classList.add("hide");
+          content.classList.add("show");
+        }, 480);
+      }
+      envelope.addEventListener("click", openLetter);
+      envelope.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLetter(); }
+      });
+
+      document.getElementById("again").addEventListener("click", function () {
+        for (var j = 0; j < 18; j++) setTimeout(spawnHeart, j * 80);
+      });
+    })();
+  </script>
+</body>
+</html>
